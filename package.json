@@ -1,0 +1,25 @@
+{
+  "name": "xvm",
+  "displayName": "XELIX VM",
+  "description": "Syntax highlighting for XELIS VM",
+  "version": "0.0.1",
+  "engines": {
+    "vscode": "^1.91.0"
+  },
+  "categories": [
+    "Programming Languages"
+  ],
+  "contributes": {
+    "languages": [{
+      "id": "xvm",
+      "aliases": ["xvm"],
+      "extensions": [".xel"],
+      "configuration": "./language-configuration.json"
+    }],
+    "grammars": [{
+      "language": "xvm",
+      "scopeName": "source.xvm",
+      "path": "./syntaxes/xvm.tmLanguage.json"
+    }]
+  }
+}
