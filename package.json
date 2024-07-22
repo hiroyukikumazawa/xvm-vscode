@@ -10,16 +10,33 @@
     "Programming Languages"
   ],
   "contributes": {
-    "languages": [{
-      "id": "xvm",
-      "aliases": ["xvm"],
-      "extensions": [".xel"],
-      "configuration": "./language-configuration.json"
-    }],
-    "grammars": [{
-      "language": "xvm",
-      "scopeName": "source.xvm",
-      "path": "./syntaxes/xvm.tmLanguage.json"
-    }]
+    "languages": [
+      {
+        "id": "xvm",
+        "aliases": [
+          "xvm"
+        ],
+        "extensions": [
+          ".xel"
+        ],
+        "configuration": "./language-configuration.json"
+      }
+    ],
+    "grammars": [
+      {
+        "language": "xvm",
+        "scopeName": "source.xvm",
+        "path": "./syntaxes/xvm.tmLanguage.json"
+      }
+    ]
+  },
+  "scripts": {
+    "vscode:prepublish": "npm run compile",
+    "compile": "tsc -p ./",
+    "watch": "tsc -p -watch ./"
+  },
+  "devDependencies": {
+    "@types/vscode": "^1.91.0",
+    "typescript": "^5.5.3"
   }
 }

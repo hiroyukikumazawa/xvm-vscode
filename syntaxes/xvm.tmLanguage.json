@@ -4,99 +4,330 @@
 	"scopeName": "source.xvm",
 	"patterns": [
 		{
+			"include": "#function_declaration"
+		},
+		{
+			"include": "#all_functions"
+		},
+		{
+			"include": "#struct_declaration"
+		},
+		{
+			"include": "#var_types"
+		},
+		{
+			"include": "#constants"
+		},
+		{
+			"include": "#comments"
+		},
+		{
+			"include": "#brackets"
+		},
+		{
+			"include": "#delimiters"
+		},
+		{
 			"include": "#keywords"
 		},
 		{
-			"include": "#strings"
+			"include": "#operators"
+		},
+		{
+			"include": "#string_literal"
+		},
+		{
+			"include": "#storage_types"
+		},
+		{
+			"include": "#env_functions"
 		}
 	],
 	"repository": {
+		"constants": {
+			"patterns": [
+				{
+					"match": "\\b(true|false)|(null)\\b",
+					"captures": {
+						"1": {
+							"name": "constant.language.boolean.xvm"
+						},
+						"2": {
+							"name": "constant.language.null.xvm"
+						}
+					}
+				},
+				{
+					"match": "\\b(\\d|_)+L?\\b",
+					"name": "constant.numeric.xvm"
+				}
+			]
+		},
+		"comments": {
+			"patterns": [
+				{
+					"begin": "(\\/\\/)",
+					"end": "(?:\\n|$)",
+					"name": "comment.line.double-slash.xvm"
+				}
+			]
+		},
+		"brackets": {
+			"patterns": [
+				{
+					"begin": "\\{",
+					"beginCaptures": {
+						"0": {
+							"name": "punctuation.definition.begin.bracket.curly.go"
+						}
+					},
+					"end": "\\}",
+					"endCaptures": {
+						"0": {
+							"name": "punctuation.definition.end.bracket.curly.go"
+						}
+					},
+					"patterns": [
+						{
+							"include": "$self"
+						}
+					]
+				},
+				{
+					"begin": "\\(",
+					"beginCaptures": {
+						"0": {
+							"name": "punctuation.definition.begin.bracket.round.go"
+						}
+					},
+					"end": "\\)",
+					"endCaptures": {
+						"0": {
+							"name": "punctuation.definition.end.bracket.round.go"
+						}
+					},
+					"patterns": [
+						{
+							"include": "$self"
+						}
+					]
+				},
+				{
+					"begin": "\\[",
+					"beginCaptures": {
+						"0": {
+							"name": "punctuation.definition.begin.bracket.square.go"
+						}
+					},
+					"end": "\\]",
+					"endCaptures": {
+						"0": {
+							"name": "punctuation.definition.end.bracket.square.go"
+						}
+					},
+					"patterns": [
+						{
+							"include": "$self"
+						}
+					]
+				}
+			]
+		},
+		"delimiters": {
+			"patterns": [
+				{
+					"match": "\\,",
+					"name": "punctuation.other.comma.go"
+				},
+				{
+					"match": "\\.(?!\\.\\.)",
+					"name": "punctuation.other.period.go"
+				},
+				{
+					"match": ":(?!=)",
+					"name": "punctuation.other.colon.go"
+				}
+			]
+		},
 		"keywords": {
 			"patterns": [
 				{
-					"name": "keyword.control.xvm",
-					"match": "\\b(as|let|const|if|else|while|foreach|in|for|break|continue|return)\\b"
+					"match": "\\b(as|if|else|continue|return|for|foreach|in|while)\\b",
+					"name": "keyword.control.xvm"
 				},
 				{
-					"name": "keyword.function.xvm",
-					"match": "\\b(func|entry)\\b"
+					"match": "\\bconst\\b",
+					"name": "keyword.const.xvm"
 				},
 				{
-					"name": "support.function.xvm",
-					"match": "\\b(println)\\b"
+					"match": "\\blet\\b",
+					"name": "keyword.let.xvm"
 				},
 				{
-					"name": "storage.type.xvm",
-					"match": "\\b(byte|short|int|long|bool|string)\\b"
+					"match": "\\bfunc\\b",
+					"name": "keyword.function.xvm"
 				},
 				{
-					"name": "constant.numeric.xvm",
-					"match": "\\b\\d+(L)?\\b"
+					"match": "\\bentry\\b",
+					"name": "keyword.function.main.xvm"
 				},
 				{
-					"name": "comment.line.xvm",
-					"match": "\\/\\/.*"
+					"match": "\\bstruct\\b",
+					"name": "entity.name.class.xvm"
+				}
+			]
+		},
+		"operators": {
+			"patterns": [
+				{
+					"match": "(==|!=|<=|>=|<(?!<)|>(?!>))",
+					"name": "keyword.operator.comparison.xvm"
 				},
 				{
-					"name": "constant.language.xvm",
-					"match": "\\b(true|false)\\b"
+					"match": "(&&|\\|\\||!)",
+					"name": "keyword.operator.logical.xvm"
 				},
 				{
-					"match": "(\\w+)\\(\\)",
+					"match": "(=|\\+=|\\-=)",
+					"name": "keyword.operator.assignment.xvm"
+				},
+				{
+					"match": "(\\+|\\-|\\*|/|%)",
+					"name": "keyword.operator.arithmetic.xvm"
+				},
+				{
+					"match": "(<<|>>)",
+					"name": "keyword.operator.bitwise.xvm"
+				}
+			]
+		},
+		"string_literal": {
+			"patterns": [
+				{
+					"begin": "\"",
+					"end": "\"",
+					"name": "string.quoted.double.xvm"
+				}
+			]
+		},
+		"storage_types": {
+			"patterns": [
+				{
+					"match": "\\bstring\\b",
+					"name": "storage.type.string.xvm"
+				},
+				{
+					"match": "\\bbool\\b",
+					"name": "storage.type.boolean.xvm"
+				},
+				{
+					"match": "\\bbyte\\b",
+					"name": "storage.type.byte.xvm"
+				},
+				{
+					"match": "\\bshort\\b",
+					"name": "storage.type.short.xvm"
+				},
+				{
+					"match": "\\bint\\b",
+					"name": "storage.type.int.xvm"
+				},
+				{
+					"match": "\\blong\\b",
+					"name": "storage.type.long.xvm"
+				},
+				{
+					"match": "\\bstruct\\b",
+					"name": "storage.type.struct.xvm"
+				},
+				{
+					"match": "\\b(optional)\\b<(\\w+)>",
 					"captures": {
 						"1": {
-							"name": "entity.name.function.xvm"
-						}
-					}
-				},
-				{
-					"match": "(struct)\\s+(\\w+)",
-					"captures": {
-						"1": {
-							"name": "keyword.control.xvm"
+							"name": "entity.name.type.optional.xvm"
 						},
 						"2": {
-							"name": "entity.name.class.xvm"
-						}
-					}
-				},
-				{
-					"match": "(\\w+):\\s+(\\w+)",
-					"captures": {
-						"1": {
-							"name": "variable.name.xvm"
-						},
-						"2": {
-							"name": "entity.name.class.xvm"
-						}
-					}
-				},
-				{
-					"match": "(\\w+)\\.\\b(\\w+)(?!\\()\\b",
-					"captures": {
-						"2": {
-							"name": "variable.name.xvm"
-						}
-					}
-				},
-				{
-					"match": "(\\w+)\\.",
-					"captures": {
-						"1": {
-							"name": "variable.name.xvm"
+							"patterns": [
+								{
+									"include": "$self"
+								}
+							]
 						}
 					}
 				}
 			]
 		},
-		"strings": {
-			"name": "string.quoted.double.xvm",
-			"begin": "\"",
-			"end": "\"",
+		"struct_declaration": {
+			"match": "(^\\bstruct\\b)\\s*(\\w+)\\s*\\{",
+			"captures": {
+				"1": {
+					"name": "storage.type.struct.xvm"
+				},
+				"2": {
+					"name": "entity.name.class.xvm"
+				}
+			}
+		},
+		"var_types": {
+			"match": "\\w+:\\s+(\\w+)",
+			"captures": {
+				"1": {
+									"name": "entity.name.class.xvm",
+					"patterns": [
+						{
+							"include": "#storage_types"
+						}
+				
+					]
+				}
+			}
+		},
+		"function_declaration": {
+			"match": "(?:^\\b(func|entry)\\b)\\s*(\\(.+\\))?\\s*(\\w+)\\(?(.+)\\{",
+			"captures": {
+				"1": {
+					"name": "keyword.function.xvm"
+				},
+				"2": {
+					"patterns": [
+						{
+							"include": "#storage_types"
+						},
+						{
+							"match": "\\w+\\s*(\\w+)",
+							"captures": {
+								"1": {
+									"name": "entity.name.class.xvm"
+								}
+							}
+						}
+					]
+				},
+				"3": {
+					"name": "entity.name.function.xvm"
+				},
+				"4": {
+					"patterns": [
+						{
+							"include": "#storage_types"
+						}
+					]
+				}
+			}
+		},
+		"all_functions": {
 			"patterns": [
 				{
-					"name": "constant.character.escape.xvm",
-					"match": "\\\\."
+					"match": "\\w+\\(",
+					"name": "entity.name.function.xvm"
+				}
+			]
+		},
+		"env_functions": {
+			"patterns": [
+				{
+					"match": "\\bprintln\\b",
+					"name": "entity.name.function.env.xvm"
 				}
 			]
 		}
