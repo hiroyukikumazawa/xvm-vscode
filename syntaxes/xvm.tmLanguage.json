@@ -7,6 +7,9 @@
 			"include": "#function_declaration"
 		},
 		{
+			"include": "#function_receiver"
+		},
+		{
 			"include": "#all_functions"
 		},
 		{
@@ -198,6 +201,14 @@
 				{
 					"match": "(<<|>>)",
 					"name": "keyword.operator.bitwise.xvm"
+				},
+				{
+					"match": "\\?|:",
+					"name": "keyword.operator.ternary.xvm"
+				},
+				{
+					"match": "\\.\\.",
+					"name": "keyword.operator.range.xvm"
 				}
 			]
 		},
@@ -254,6 +265,18 @@
 							]
 						}
 					}
+				},
+				{
+					"match": "\\b(u8|u16|u32|u64)\\b",
+					"name": "storage.type.numeric.xvm"
+				},
+				{
+					"match": "\\b(\\w+)\\[\\]\\b",
+					"captures": {
+						"1": {
+							"name": "storage.type.array.xvm"
+						}
+					}
 				}
 			]
 		},
@@ -277,34 +300,25 @@
 						{
 							"include": "#storage_types"
 						}
-				
 					]
 				}
 			}
 		},
 		"function_declaration": {
-			"match": "(?:^\\b(func|entry)\\b)\\s*(\\(.+\\))?\\s*(\\w+)\\(?(.+)\\{",
+			"match": "(?:^\\b(fn|entry)\\b)\\s*(\\w+)\\s*\\(?(.*)\\)?\\s*(?:->\\s*(\\w+))?\\s*\\{",
 			"captures": {
 				"1": {
 					"name": "keyword.function.xvm"
 				},
 				"2": {
-					"patterns": [
-						{
-							"include": "#storage_types"
-						},
-						{
-							"match": "\\w+\\s*(\\w+)",
-							"captures": {
-								"1": {
-									"name": "entity.name.class.xvm"
-								}
-							}
-						}
-					]
+					"name": "entity.name.function.xvm"
 				},
 				"3": {
-					"name": "entity.name.function.xvm"
+					"patterns": [
+						{
+							"include": "#parameters"
+						}
+					]
 				},
 				"4": {
 					"patterns": [
@@ -312,6 +326,20 @@
 							"include": "#storage_types"
 						}
 					]
+				}
+			}
+		},
+		"function_receiver": {
+			"match": "\\bfn\\s*\\((\\w+)\\s+(\\w+)\\)\\s*(\\w+)",
+			"captures": {
+				"1": {
+					"name": "variable.parameter.xvm"
+				},
+				"2": {
+					"name": "entity.name.type.struct.xvm"
+				},
+				"3": {
+					"name": "entity.name.function.xvm"
 				}
 			}
 		},
